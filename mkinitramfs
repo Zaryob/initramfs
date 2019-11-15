@@ -27,7 +27,7 @@ config = {"rootDir"         : "/",
 
 def loadFile(_file):
     try:
-        f = file(_file)
+        f = open(_file)
         d = [a.lstrip().rstrip("\n") for a in f]
         d = filter(lambda x: not (x.startswith("#") or x == ""), d)
         f.close()
@@ -82,17 +82,17 @@ def capture(*cmd):
     return a.communicate()
 
 def run(*cmd):
-    f = file("/dev/null", "w")
+    f = open("/dev/null", "w")
     return subprocess.call(cmd, shell=True, stdout=f, stderr=f)
 
 def printFail(msg):
-    print "ERROR: %s" % msg
+    print("ERROR: %s" % msg)
 
     tempdir.cleanup()
     sys.exit(1)
 
 def printWarn(msg):
-    print "WARNING: %s" % msg
+    print("WARNING: %s" % msg)
 
 def setKernelVersion(Version=""):
     if Version == "":
@@ -583,4 +583,3 @@ if __name__ == "__main__":
     initramfs.create()
 
     tempdir.cleanup()
-

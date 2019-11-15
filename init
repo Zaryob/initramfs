@@ -10,7 +10,7 @@ INITRAMFSCONF="/etc/initramfs.conf"
 ROOT_LINKS="bin sbin lib boot usr opt"
 ROOT_TREES="etc root home var"
 TMPFS_DIRS="dev mnt mnt/cdrom mnt/livecd mnt/thin tmp sys proc media"
-LOOPBACKFILE="pardus.img"
+LOOPBACKFILE="sulin.img"
 
 NORESUME=0
 LIVE=0
@@ -290,7 +290,7 @@ mount_cdroot() {
 
     # for userspace applications
     REAL_ROOT_TYPE=`echo "${ROOT_DEVICE}" | sed -e 's/^\/newroot\/dev\///' | grep -qE '^sr[0-9]*|^hd[a-z]|^pcd[0-9]|^xvd*' && echo "optical" || echo "harddisk"`
-    echo "${REAL_ROOT_TYPE}" > /newroot/var/run/pardus/livemedia
+    echo "${REAL_ROOT_TYPE}" > /newroot/var/run/sulin/livemedia
 
     # this is needed for yali
     MNTDIR=`grep \/mnt\/cdrom\  /proc/mounts|sed 's/\/newroot//g'`
@@ -584,4 +584,3 @@ mount --move /sys /newroot/sys
 info "Switching to the real root"
 test -x /bin/plymouth && /bin/plymouth update-root-fs --new-root-dir=/newroot
 exec /bin/switch_root -c /dev/console /newroot ${INIT} ${LEVEL}
-
