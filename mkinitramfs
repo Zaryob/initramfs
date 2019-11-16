@@ -49,7 +49,7 @@ def dohardlink(destination, source):
 def dosymlink(destination, source):
     os.symlink(destination, source)
 
-def mknod(nodfile, nodtype, major, minor, perms=0666):
+def mknod(nodfile, nodtype, major, minor, perms=0o666):
     # c for character b for block devices, mknod style
     if nodtype == "c":
         devtype = stat.S_IFCHR
@@ -102,7 +102,7 @@ def setKernelVersion(Version=""):
 
     # FIXME: we should do this an option and in a try/except
     if kver == "":
-        print "could not find version of %s, autodetecting" % config["kernelType"]
+        print("could not find version of %s, autodetecting" % config["kernelType"])
         kver = os.uname()[2]
 
     config["kernelVersion"] = kver
@@ -160,7 +160,7 @@ class BaseSystem:
             copy(i, self.getNewRoot(self.baseFileList[i]))
 
         for i in ["/init", "/etc/udhcpc.script"]:
-            os.chmod(self.getNewRoot(i), 0755)
+            os.chmod(self.getNewRoot(i), 0o755)
 
         for i in ["ext2", "ext3", "ext4", "reiserfs", "xfs", "btrfs"]:
             touch(self.getNewRoot("/bin/fsck.%s" % i))
